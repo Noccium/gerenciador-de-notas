@@ -7,15 +7,15 @@ import "./assets/index.css";
 
 class App extends Component {
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
       notas: []
     };
   }
 
-  criarNota(titulo, texto){
-    const novaNota = {titulo, texto};
+  criarNota(titulo, texto) {
+    const novaNota = { titulo, texto };
     const novoEstado = {
       notas: [...this.state.notas, novaNota]
     }
@@ -23,11 +23,20 @@ class App extends Component {
     this.setState(novoEstado)
   }
 
+  deletarNota(index) {
+    console.log(index)
+    let notas = [...this.state.notas]
+    notas.splice(index, 1)
+    this.setState({notas: notas})
+  }
+
   render() {
     return (
       <section className="conteudo">
-        <FormularioCadastro criarNota={this.criarNota.bind(this)}/>
-        <ListaDeNotas notas={this.state.notas}/>
+        <FormularioCadastro criarNota={this.criarNota.bind(this)} />
+        <ListaDeNotas
+          deletarNota={this.deletarNota.bind(this)}
+          notas={this.state.notas} />
       </section>
     );
   }
